@@ -1,0 +1,48 @@
+{
+    "name": "paidyet/paidyet",
+    "type": "library",
+    "description": "PaidYET driver for the Omnipay payment processing library",
+    "keywords": [
+        "paidyet",
+        "paid yet",
+        "gateway",
+        "merchant",
+        "secure",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/devaughnpaidyet/ommnipay-paidyet",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DeVaughn Skillern",
+            "email": "devaughn@paidyet.com"
+        },
+        {
+            "name": "PaidYET Contributors",
+            "homepage": "https://github.com/devaughnpaidyet/ommnipay-paidyet/contributors"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\PaidYET\\" : "src/" }
+    },
+    "require": {
+        "php": "^7.2|^8.0",
+        "omnipay/common": "^3"
+    },
+    "require-dev": {
+        "omnipay/tests": "^4.1.2",
+        "squizlabs/php_codesniffer": "^3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 src/",
+        "fix-style": "phpcbf -p --standard=PSR2 src/"
+    },
+    "prefer-stable": true
+}
