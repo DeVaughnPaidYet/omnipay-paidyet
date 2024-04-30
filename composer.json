@@ -1,5 +1,5 @@
 {
-    "name": "paidyet/paidyet",
+    "name": "omnipay/paidyet",
     "type": "library",
     "description": "PaidYET driver for the Omnipay payment processing library",
     "keywords": [
