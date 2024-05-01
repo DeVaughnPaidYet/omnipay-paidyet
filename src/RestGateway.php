@@ -30,15 +30,15 @@ use Omnipay\PaidYET\Message\RestVerifyWebhookSignatureRequest;
  *
  * ### Credentials
  *
- * Authenticate with your PaidYET key and Merchant ID to retrieve a bearer token. 
+ * Authenticate with your PaidYET secret and Merchant ID to retrieve a bearer token. 
  * The bearer token will expire periodically and you will need to obtain a new one.
  * 
  * merchant_id
- * Merchant's PaidYET UUID. This field is only required when using a Partner level API key.
+ * Merchant's PaidYET UUID. This field is only required when using a Partner level API secret.
  * This is found in the Merchant list in the Partner Portal.
  *
- * key
- * Merchant's PaidYET api key. These can be managed in the PaidYET dashboard
+ * secret
+ * Merchant's PaidYET api secret. These can be managed in the PaidYET dashboard
  *
  *
  * ### Example
@@ -53,7 +53,7 @@ use Omnipay\PaidYET\Message\RestVerifyWebhookSignatureRequest;
  *   // Initialise the gateway
  *   $gateway->initialize(array(
  *       'clientId' => 'merchant_id',
- *       'key'   => 'key',
+ *       'secret'   => 'secret',
  *       'testMode' => true, // Or false when you are ready for live transactions
  *   ));
  * </code>
@@ -136,7 +136,7 @@ class RestGateway extends AbstractGateway
     {
         return array(
             'clientId'     => '',
-            'key'       => '',
+            'secret'       => '',
             'token'        => '',
             'testMode'     => false,
         );
@@ -146,7 +146,7 @@ class RestGateway extends AbstractGateway
     /**
      * Token Access
      *
-     * Get an access token by using the your clientId:key as your Basic Auth
+     * Get an access token by using the your clientId:secret as your Basic Auth
      * credentials.
      *
      * @return string
@@ -160,7 +160,7 @@ class RestGateway extends AbstractGateway
      * Set OAuth 2.0 client ID for the access token.
      *
      * Get an access token by using the OAuth 2.0 client_credentials
-     * token grant type with your clientId:key as your Basic Auth
+     * token grant type with your clientId:secret as your Basic Auth
      * credentials.
      *
      * @param string $value
@@ -172,21 +172,21 @@ class RestGateway extends AbstractGateway
     }
 
     /**
-     * Get OAuth 2.0 key for the access token.
+     * Get OAuth 2.0 secret for the access token.
      *
      * Get an access token by using the OAuth 2.0 client_credentials
-     * token grant type with your clientId:key as your Basic Auth
+     * token grant type with your clientId:secret as your Basic Auth
      * credentials.
      *
      * @return string
      */
     public function getSecret()
     {
-        return $this->getParameter('key');
+        return $this->getParameter('secret');
     }
 
     /**
-     * Set key (apikey) for the access token.
+     * Set secret (apisecret) for the access token.
      *
      *
      * @param string $value
@@ -194,7 +194,7 @@ class RestGateway extends AbstractGateway
      */
     public function setSecret($value)
     {
-        return $this->setParameter('key', $value);
+        return $this->setParameter('secret', $value);
     }
 
     /**

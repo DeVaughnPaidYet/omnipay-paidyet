@@ -83,12 +83,12 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
 
     public function getSecret()
     {
-        return $this->getParameter('key');
+        return $this->getParameter('secret');
     }
 
     public function setSecret($value)
     {
-        return $this->setParameter('key', $value);
+        return $this->setParameter('secret', $value);
     }
 
     public function getToken()
