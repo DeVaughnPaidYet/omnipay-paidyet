@@ -290,18 +290,19 @@ class RestGateway extends AbstractGateway
      * @param string $class
      * @param array $parameters
      * @return \Omnipay\PaidYET\Message\AbstractRestRequest
+     *  
+     * public function createRequest($class, array $parameters = array())
+     * {
+     *     if (!$this->hasToken() && $class != '\Omnipay\PaidYET\Message\RestTokenRequest') {
+     *         // This will set the internal token parameter which the parent
+     *         // createRequest will find when it calls getParameters().
+     *         $this->getToken(true);
+     *     }
+     *
+     *     return parent::createRequest($class, $parameters);
+     * }
+     *
      */
-    public function createRequest($class, array $parameters = array())
-    {
-        if (!$this->hasToken() && $class != '\Omnipay\PaidYET\Message\RestTokenRequest') {
-            // This will set the internal token parameter which the parent
-            // createRequest will find when it calls getParameters().
-            $this->getToken(true);
-        }
-
-        return parent::createRequest($class, $parameters);
-    }
-
    
 
     /**
@@ -488,8 +489,5 @@ class RestGateway extends AbstractGateway
         return $this->createRequest(RestVerifyWebhookSignatureRequest::class, $parameters);
     }
 
-    // TODO: Update an agreement
-    // TODO: Retrieve an agreement
-    // TODO: Set outstanding agreement amounts
-    // TODO: Bill outstanding agreement amounts
+   
 }
