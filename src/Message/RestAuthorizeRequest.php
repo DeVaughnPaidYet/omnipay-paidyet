@@ -104,30 +104,6 @@ namespace Omnipay\PaidYET\Message;
  *
  * Step 2 is to send the purchase request.
  *
- * </code>
- *   // Do a purchase transaction on the gateway
- *   try {
- *       $transaction = $gateway->authorize(array(
- *           'amount'        => '10.00',
- *           'currency'      => 'AUD',
- *           'description'   => 'This is a test authorize transaction.',
- *           'returnUrl'     => 'http://mysite.com/paypal/return/?txn_id=' . $txn_id,
- *           'cancelUrl'     => 'http://mysite.com/paypal/return/?txn_id=' . $txn_id,
- *       ));
- *       $response = $transaction->send();
- *       $data = $response->getData();
- *       echo "Gateway purchase response data == " . print_r($data, true) . "\n";
- *
- *       if ($response->isSuccessful()) {
- *           echo "Step 2 was successful!\n";
- *       }
- *
- *   } catch (\Exception $e) {
- *       echo "Exception caught while attempting authorize.\n";
- *       echo "Exception type == " . get_class($e) . "\n";
- *       echo "Message == " . $e->getMessage() . "\n";
- *   }
- * </code>
  *
  * Step 3 is where your code needs to redirect the customer to the PaidYET
  * gateway so that the customer can sign in to their PaidYET account and
@@ -183,33 +159,6 @@ namespace Omnipay\PaidYET\Message;
  *   }
  * </code>
  *
- * #### Note on Handling Error Messages
- *
- * PayPal account payments are a 2 step process.  Firstly the customer needs to
- * authorize the payment from PayPal to your application.  Secondly, assuming that
- * the customer does not have enough balance to pay the invoice from their PayPal
- * balance, PayPal needs to transfer the funds from the customer's credit card to
- * their PayPal account.  This transaction is between PayPal and the customer, and
- * not between the customer and you.
- *
- * If the second transaction fails then a call to completePurchase() will return
- * an error.  However this error message will be fairly generic.  For privacy
- * reasons, PayPal will not disclose to the merchant the full reason for the
- * failure, they will only disclose this to the customer.
- *
- * Therefore on a failed completeAuthorize() call you could display an error message
- * like this one:
- *
- * "PayPal failed to process the transaction from your card. For privacy reasons,
- * PayPal are unable to disclose to us the reason for this failure. You should try
- * a different payment method, a different card within PayPal, or contact PayPal
- * support if you need to understand the reason for the failed transaction. PayPal
- * may advise you to use a different card if the particular card is rejected
- * by the card issuer."
- *
- * @link https://developer.paypal.com/docs/integration/direct/capture-payment/#authorize-the-payment
- * @link https://developer.paypal.com/docs/api/#authorizations
- * @link http://bit.ly/1wUQ33R
  * @see RestCaptureRequest
  * @see RestPurchaseRequest
  */
@@ -218,7 +167,7 @@ class RestAuthorizeRequest extends AbstractRestRequest
     public function getData()
     {
         $data = array(
-            'intent' => 'authorize',
+            'type' => 'auth',
             'payer' => array(
                 'payment_method' => 'credit_card',
                 'funding_instruments' => array()
@@ -270,21 +219,20 @@ class RestAuthorizeRequest extends AbstractRestRequest
                     'expire_month' => $this->getCard()->getExpiryMonth(),
                     'expire_year' => $this->getCard()->getExpiryYear(),
                     'cvv2' => $this->getCard()->getCvv(),
-                    'first_name' => $this->getCard()->getFirstName(),
-                    'last_name' => $this->getCard()->getLastName(),
+                    'name' => $this->getCard()->getFirstName(),
+                    'bin' => $this->getCard()->getLastName(),
                     'billing_address' => array(
-                        'line1' => $this->getCard()->getAddress1(),
+                        'address' => $this->getCard()->getAddress1(),
                         //'line2' => $this->getCard()->getAddress2(),
                         'city' => $this->getCard()->getCity(),
                         'state' => $this->getCard()->getState(),
-                        'postal_code' => $this->getCard()->getPostcode(),
+                        'postal' => $this->getCard()->getPostcode(),
                         'country_code' => strtoupper($this->getCard()->getCountry()),
                     )
                 )
             );
 
-            // There's currently a quirk with the REST API that requires line2 to be
-            // non-empty if it's present. Jul 14, 2014
+            
             $line2 = $this->getCard()->getAddress2();
             if (!empty($line2)) {
                 $data['payer']['funding_instruments'][0]['credit_card']['billing_address']['line2'] = $line2;
@@ -305,25 +253,27 @@ class RestAuthorizeRequest extends AbstractRestRequest
     }
 
     /**
-     * Get the experience profile id
-     *
-     * @return string
-     */
-    public function getExperienceProfileId()
-    {
-        return $this->getParameter('experienceProfileId');
-    }
+    * Get the experience profile id
+    *
+    * @return string
+    *
+    *public function getExperienceProfileId()
+    *{
+    *    return $this->getParameter('experienceProfileId');
+    *}
+    */
 
     /**
      * Set the experience profile id
      *
      * @param string $value
      * @return RestAuthorizeRequest provides a fluent interface.
+     *
+     * public function setExperienceProfileId($value)
+     *{
+     *    return $this->setParameter('experienceProfileId', $value);
+     * }
      */
-    public function setExperienceProfileId($value)
-    {
-        return $this->setParameter('experienceProfileId', $value);
-    }
 
     /**
      * Get transaction description.
@@ -350,13 +300,13 @@ class RestAuthorizeRequest extends AbstractRestRequest
     /**
      * Get transaction endpoint.
      *
-     * Authorization of payments is done using the /payment resource.
+     * Authorization of payments is done using the /transaction resource.
      *
      * @return string
      */
     protected function getEndpoint()
     {
-        return parent::getEndpoint() . '/payments/payment';
+        return parent::getEndpoint() . '/transaction';
     }
 
     protected function createResponse($data, $statusCode)
