@@ -168,37 +168,14 @@ class RestAuthorizeRequest extends AbstractRestRequest
     {
         $data = array(
             'type' => 'auth',
-            'payer' => array(
-                'payment_method' => 'credit_card',
-                'funding_instruments' => array()
-            ),
-            'transactions' => array(
-                array(
-                    'description' => $this->getDescription(),
-                    'amount' => array(
-                        'total' => $this->getAmount(),
-                        'currency' => $this->getCurrency(),
-                    ),
-                    'invoice_number' => $this->getTransactionId()
-                )
-            ),
+            'amount' => $this->getAmount(),
+
+            
            /* 'experience_profile_id' => $this->getExperienceProfileId() */
         );
 
-        $items = $this->getItems();
-        if ($items) {
-            $itemList = array();
-            foreach ($items as $n => $item) {
-                $itemList[] = array(
-                    'name' => $item->getName(),
-                    'description' => $item->getDescription(),
-                    'quantity' => $item->getQuantity(),
-                    'price' => $this->formatCurrency($item->getPrice()),
-                    'currency' => $this->getCurrency()
-                );
-            }
-            $data['transactions'][0]['item_list']["items"] = $itemList;
-        }
+       
+            
 
         if ($this->getCardReference()) {
             $this->validate('amount');
@@ -212,8 +189,8 @@ class RestAuthorizeRequest extends AbstractRestRequest
             $this->validate('amount', 'card');
             $this->getCard()->validate();
 
-            $data[] = array(
-                'credit_card' => array(
+            $data['credit_card'] = array(
+                
                     'number' => $this->getCard()->getNumber(),
                     //'type' => $this->getCard()->getBrand(),
                     'exp' => $this->getCard()->getExpiryMonth()."/".$this->getCard()->getExpiryYear(),
@@ -229,7 +206,7 @@ class RestAuthorizeRequest extends AbstractRestRequest
                         'postal' => $this->getCard()->getPostcode(),
                         //'country_code' => strtoupper($this->getCard()->getCountry()),//
                     )
-                )
+               
             );
 
             
