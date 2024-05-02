@@ -109,9 +109,9 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
         //print_r($body);
         $contents = $httpResponse->getBody()->getContents();
         $contentsObj = JSON_decode($contents);
-        print_r($contentsObj);
-        print_r($contentsObj->result);
-        exit();
+        //print_r($contentsObj);
+        //print_r($contentsObj->result);
+        //exit();
         return $contentsObj->result->token;
         exit();
         return $this->getParameter('token');
