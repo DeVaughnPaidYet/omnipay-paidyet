@@ -94,6 +94,19 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
 
     public function getToken()
     {
+        $data = ['key'=>$this->getSecret(), 'merchant_id'=>$this->getClientId()];
+        $body = $this->toJSON($data);
+        $httpResponse = $this->httpClient->request(
+            $this->getHttpMethod(),
+            $this->getLoginEndpoint(),
+            array(
+                'Accept' => 'application/json',
+                'Content-type' => 'application/json',
+            ),
+            $body 
+        );
+        print_r($httpResponse);
+        exit();
         return $this->getParameter('token');
     }
 
@@ -130,6 +143,12 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
         return $base . '/' . self::API_VERSION;
     }
 
+    protected function getLoginEndpoint()
+    {
+        $base = $this->getEndpoint();
+        return $base . '/login';
+    }
+
     public function sendData($data)
     {
 
@@ -150,7 +169,7 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
         try {
             $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
-                $this->getEndpoint(),
+                $this->getLoginEndpoint(),
                 array(
                     'Accept' => 'application/json',
                     'Authorization' => 'Bearer ' . $this->getToken(),
