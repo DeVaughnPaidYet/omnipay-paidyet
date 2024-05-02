@@ -189,7 +189,7 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
             // Empty response body should be parsed also as and empty array
             $body = (string) $httpResponse->getBody()->getContents();
             $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : array();
-            print_r($jsonToArrayResponse());
+            print_r($jsonToArrayResponse);
             exit();
             return $this->response = $this->createResponse($jsonToArrayResponse, $httpResponse->getStatusCode());
         } catch (\Exception $e) {
