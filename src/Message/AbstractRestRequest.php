@@ -94,7 +94,7 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
 
     public function getToken()
     {
-        $data = ['key'=>$this->getSecret(), 'merchant_id'=>$this->getClientId()];
+        $data = ['key'=>$this->getSecret()];
         $body = $this->toJSON($data);
         $httpResponse = $this->httpClient->request(
             $this->getHttpMethod(),
