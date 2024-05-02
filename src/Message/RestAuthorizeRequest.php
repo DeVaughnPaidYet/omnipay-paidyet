@@ -220,7 +220,7 @@ class RestAuthorizeRequest extends AbstractRestRequest
                     'expire_year' => $this->getCard()->getExpiryYear(),
                     'cvv2' => $this->getCard()->getCvv(),
                     'name' => $this->getCard()->getFirstName(),
-                    'bin' => $this->getCard()->getLastName(),
+                    'type' => $this->getCard()->getLastName(),
                     'billing_address' => array(
                         'address' => $this->getCard()->getAddress1(),
                         //'line2' => $this->getCard()->getAddress2(),
