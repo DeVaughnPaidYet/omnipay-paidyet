@@ -147,7 +147,9 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
 
     protected function getLoginEndpoint()
     {
-        $base = parent::getEndpoint();
+        $base = $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        $base .= '/' . self::API_VERSION;
+
         return $base . '/login';
     }
 
