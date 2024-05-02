@@ -1,15 +1,15 @@
 <?php
 /**
- * PayPal REST Response
+ * PaidYET REST Response
  */
 
-namespace Omnipay\PayPal\Message;
+namespace Omnipay\PaidYET\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
 /**
- * PayPal REST Response
+ * PaidYET REST Response
  */
 class RestResponse extends AbstractResponse
 {
