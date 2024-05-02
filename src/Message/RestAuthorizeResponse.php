@@ -1,14 +1,14 @@
 <?php
 /**
- * PayPal REST Authorize Response
+ * PaidYET REST Authorize Response
  */
 
-namespace Omnipay\PayPal\Message;
+namespace Omnipay\PaidYET\Message;
 
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
- * PayPal REST Authorize Response
+ * PaidYET REST Authorize Response
  */
 class RestAuthorizeResponse extends RestResponse implements RedirectResponseInterface
 {
