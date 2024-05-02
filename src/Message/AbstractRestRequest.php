@@ -142,9 +142,7 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
             $requestUrl = $this->getEndpoint();
         }
 
-        // Might be useful to have some debug code here, PayPal especially can be
-        // a bit fussy about data formats and ordering.  Perhaps hook to whatever
-        // logging engine is being used.
+        
         // echo "Data == " . json_encode($data) . "\n";
 
         try {
@@ -152,12 +150,9 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
                 $this->getHttpMethod(),
                 $this->getEndpoint(),
                 array(
-                    'body' => '{"key":"XpzvQsVbZ4j16NxiRresU9YyM15ILPy9-RTXkPFs"}',
+                    'Accept' => 'application/json',
                     'Authorization' => 'Bearer ' . $this->getToken(),
-                    'headers' => [
-                        'accept' => 'application/json',
-                        'content-type' => 'application/json',
-                    ],
+                    'Content-type' => 'application/json',
                 ),
                 $body
             );
