@@ -212,41 +212,34 @@ class RestAuthorizeRequest extends AbstractRestRequest
             $this->validate('amount', 'card');
             $this->getCard()->validate();
 
-            $data['payer']['funding_instruments'][] = array(
+            $data[] = array(
                 'credit_card' => array(
                     'number' => $this->getCard()->getNumber(),
-                    'type' => $this->getCard()->getBrand(),
-                    'expire_month' => $this->getCard()->getExpiryMonth(),
-                    'expire_year' => $this->getCard()->getExpiryYear(),
-                    'cvv2' => $this->getCard()->getCvv(),
+                    //'type' => $this->getCard()->getBrand(),
+                    'exp' => $this->getCard()->getExpiryMonth()."/".$this->getCard()->getExpiryYear(),
+                    //'expire_year' => $this->getCard()->getExpiryYear(),
+                    'cvv' => $this->getCard()->getCvv(),
                     'name' => $this->getCard()->getFirstName(),
-                    'type' => $this->getCard()->getLastName(),
+                    //'type' => $this->getCard()->getLastName(),
                     'billing_address' => array(
                         'address' => $this->getCard()->getAddress1(),
                         //'line2' => $this->getCard()->getAddress2(),
                         'city' => $this->getCard()->getCity(),
                         'state' => $this->getCard()->getState(),
                         'postal' => $this->getCard()->getPostcode(),
-                        'country_code' => strtoupper($this->getCard()->getCountry()),
+                        //'country_code' => strtoupper($this->getCard()->getCountry()),//
                     )
                 )
             );
 
             
             $line2 = $this->getCard()->getAddress2();
-            if (!empty($line2)) {
-                $data['payer']['funding_instruments'][0]['credit_card']['billing_address']['line2'] = $line2;
-            }
+            
         } else {
             $this->validate('amount', 'returnUrl', 'cancelUrl');
 
-            unset($data['payer']['funding_instruments']);
+            unset($data['credit_card']);
 
-            $data['payer']['payment_method'] = 'paypal';
-            $data['redirect_urls'] = array(
-                'return_url' => $this->getReturnUrl(),
-                'cancel_url' => $this->getCancelUrl(),
-            );
         }
 
         return $data;
