@@ -1,48 +1,13 @@
 <?php
 /**
- * PayPal REST Purchase Request
+ * PaidYET REST Purchase Request
  */
 
-namespace Omnipay\PayPal\Message;
+namespace Omnipay\PaidYET\Message;
 
 /**
- * PayPal REST Purchase Request
+ * PaidYET REST Purchase Request
  *
- * PayPal provides various payment related operations using
- * the /payment resource and related sub-resources. Use payment
- * for direct credit card payments and PayPal account payments.
- * You can also use sub-resources to get payment related details.
- *
- * Note that a PayPal Purchase Request looks exactly like a PayPal
- * Authorize request except that the 'intent' is set to 'sale' for
- * immediate payment.  This class takes advantage of that by
- * extending the RestAuthorizeRequest class and simply over-riding
- * the getData() function to set the intent to sale.
- *
- * ### Example
- *
- * #### Initialize Gateway
- *
- * <code>
- *   // Create a gateway for the PayPal RestGateway
- *   // (routes to GatewayFactory::create)
- *   $gateway = Omnipay::create('PayPal_Rest');
- *
- *   // Initialise the gateway
- *   $gateway->initialize(array(
- *       'clientId' => 'MyPayPalClientId',
- *       'secret'   => 'MyPayPalSecret',
- *       'testMode' => true, // Or false when you are ready for live transactions
- *   ));
- * </code>
- *
- * #### Direct Credit Card Payment
- *
- * This is for the use case where a customer has presented their
- * credit card details and you intend to use the PayPal REST gateway
- * for processing a transaction using that credit card data.
- *
- * This does not require the customer to have a PayPal account.
  *
  * <code>
  *   // Create a credit card object
@@ -88,25 +53,6 @@ namespace Omnipay\PayPal\Message;
  * some countries.
  * As of January 2015 these transactions are only supported in the UK
  * and in the USA.
- *
- * #### PayPal Account Payment
- *
- * This is for the use case where the customer intends to pay using their
- * PayPal account.  Note that no credit card details are provided, instead
- * both a return URL and a cancel URL are required.
- *
- * The optimal solution here is to provide a unique return URL and cancel
- * URL per transaction. That way your code will know what transaction is
- * being returned or cancelled by PayPal.
- *
- * So step 1 is to store some transaction data somewhere on your system so
- * that you have an ID when your transaction returns.  How you do this of
- * course depends on what framework, database layer, etc, you are using but
- * for this step let's assume that you have a class set up that can save
- * a transaction and return the object, and that you can retrieve the ID
- * of that saved object using some call like getId() on the object.  Most
- * ORMs such as Doctrine ORM, Propel or Eloquent will have some methods
- * that will allow you to do this or something similar.
  *
  * <code>
  *   $transaction = MyClass::saveTransaction($some_data);
@@ -193,32 +139,7 @@ namespace Omnipay\PayPal\Message;
  *       // like "card declined", etc.
  *   }
  * </code>
- *
- * #### Note on Handling Error Messages
- *
- * PayPal account payments are a 2 step process.  Firstly the customer needs to
- * authorize the payment from PayPal to your application.  Secondly, assuming that
- * the customer does not have enough balance to pay the invoice from their PayPal
- * balance, PayPal needs to transfer the funds from the customer's credit card to
- * their PayPal account.  This transaction is between PayPal and the customer, and
- * not between the customer and you.
- *
- * If the second transaction fails then a call to completePurchase() will return
- * an error.  However this error message will be fairly generic.  For privacy
- * reasons, PayPal will not disclose to the merchant the full reason for the
- * failure, they will only disclose this to the customer.
- *
- * Therefore on a failed completePurchase() call you could display an error message
- * like this one:
- *
- * "PayPal failed to process the transaction from your card. For privacy reasons,
- * PayPal are unable to disclose to us the reason for this failure. You should try
- * a different payment method, a different card within PayPal, or contact PayPal
- * support if you need to understand the reason for the failed transaction. PayPal
- * may advise you to use a different card if the particular card is rejected
- * by the card issuer."
- *
- * @link https://developer.paypal.com/docs/api/#create-a-payment
+ * @link 
  * @see RestAuthorizeRequest
  */
 class RestPurchaseRequest extends RestAuthorizeRequest
