@@ -14,7 +14,6 @@ use Omnipay\Common\Exception\InvalidResponseException;
  *
  * @see Omnipay\PayPal\RestGateway
  */
-require_once('vendor/autoload.php');
 
 abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractRequest
 {
