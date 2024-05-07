@@ -171,7 +171,7 @@ abstract class AbstractRestVoidRequest extends \Omnipay\Common\Message\AbstractR
         }
         //print_r($this->getEndpoint());
         //exit();
-        
+        print_r($body);
         // Print token:
         //print_r($this->getToken());
         //exit();
