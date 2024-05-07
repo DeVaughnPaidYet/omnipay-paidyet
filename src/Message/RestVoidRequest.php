@@ -1,28 +1,28 @@
 <?php
 /**
- * PayPal REST Void an authorization
+ * PaidYET REST Void an authorization
  */
 
-namespace Omnipay\PayPal\Message;
+namespace Omnipay\PaidYET\Message;
 
 /**
- * PayPal REST Void an authorization
+ * PaidYET REST Void an authorization
  *
  * Use this call to void a previously authorized payment.
  * Note: A fully captured authorization cannot be voided.
  *
- * @link https://developer.paypal.com/docs/api/#void-an-authorization
+ * @link https://paidyet.readme.io/reference/patch_transaction-id
  * @see RestAuthorizeRequest
  */
 class RestVoidRequest extends AbstractRestRequest
 {
     public function getData()
     {
-        $this->validate('transactionReference');
+        $this->validate('transactionId');
     }
 
     public function getEndpoint()
     {
-        return parent::getEndpoint() . '/payments/authorization/' . $this->getTransactionReference() . '/void';
+        return parent::getEndpoint() . '/transaction' . '/' . $this->getTransactionId();
     }
 }
