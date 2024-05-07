@@ -14,7 +14,7 @@ class RestRefundRequest extends AbstractRestRequest
 {
     public function getData()
     {
-        $this->validate('transactionReference');
+        $this->validate('transactionId');
 
         if ($this->getAmount() > 0) {
             return array(
@@ -31,7 +31,7 @@ class RestRefundRequest extends AbstractRestRequest
 
     public function getEndpoint()
     {
-        return parent::getEndpoint() . '/transaction1' . '/' . $this->getTransactionReference();
+        return parent::getEndpoint() . '/transaction' . '/' . $this->getTransactionId();
         
     }
     
