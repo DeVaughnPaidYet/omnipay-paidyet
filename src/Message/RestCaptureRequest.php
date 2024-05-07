@@ -16,15 +16,10 @@ class RestCaptureRequest extends AbstractRestRequest
 {
     public function getData()
     {
-        $this->validate('transactionId', 'amount');
+        $this->validate('transactionId');
+        $amount = $this->getAmount();
 
-        return array(
-            'amount' => array(
-                'currency' => $this->getCurrency(),
-                'total' => $this->getAmount(),
-            ),
-            'is_final_capture' => true,
-        );
+        return $amount;
     }
 
     public function getEndpoint()
