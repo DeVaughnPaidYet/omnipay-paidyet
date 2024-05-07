@@ -32,7 +32,7 @@ class RestRefundRequest extends AbstractRestRequest
     public function getEndpoint()
     {
         return parent::getEndpoint() . '/transaction' . '/' . $this->getTransactionReference();
-        print_r($this->getEndpoint());
+        
     }
     
 }
