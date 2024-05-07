@@ -58,9 +58,7 @@ class RestAuthorizeResponse extends RestResponse implements RedirectResponseInte
 
     public function getTransactionReference()
     {
-        // The transaction reference for a paypal purchase request or for a
-        // paypal create subscription request ends up in the execute URL
-        // in the links section of the response.
+        
         $completeUrl = $this->getCompleteUrl();
         if (empty($completeUrl)) {
             return parent::getTransactionReference();

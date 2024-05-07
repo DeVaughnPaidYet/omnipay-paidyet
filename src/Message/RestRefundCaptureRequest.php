@@ -1,16 +1,15 @@
 <?php
 /**
- * PayPal REST Refund Captured Payment Request
+ * PaidYET REST Refund Captured Payment Request
  */
 
-namespace Omnipay\PayPal\Message;
+namespace Omnipay\PaidYET\Message;
 
 /**
- * PayPal REST Refund Captured Payment Request
+ * PaidYET REST Refund Captured Payment Request
  *
- * Use this call to refund a captured payment.
+ * Not currently used: but can modify/Use this call to refund a captured payment.
  *
- * @link https://developer.paypal.com/docs/api/#refund-a-captured-payment
  * @see RestAuthorizeRequest
  * @see RestCaptureRequest
  */

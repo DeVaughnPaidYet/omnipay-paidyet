@@ -200,16 +200,6 @@ abstract class AbstractRestVoidRequest extends \Omnipay\Common\Message\AbstractR
         }
     }
 
-    /**
-     * Returns object JSON representation required by PayPal.
-     * The PayPal REST API requires the use of JSON_UNESCAPED_SLASHES.
-     *
-     * Adapted from the official PayPal REST API PHP SDK.
-     * (https://github.com/paypal/PayPal-PHP-SDK/blob/master/lib/PayPal/Common/PayPalModel.php)
-     *
-     * @param int $options http://php.net/manual/en/json.constants.php
-     * @return string
-     */
     public function toJSON($data, $options = 0)
     {
         // Because of PHP Version 5.3, we cannot use JSON_UNESCAPED_SLASHES option
