@@ -14,7 +14,7 @@ namespace Omnipay\PaidYET\Message;
  * @link https://paidyet.readme.io/reference/patch_transaction-id
  * @see RestAuthorizeRequest
  */
-class RestVoidRequest extends AbstractRestRequest
+class RestVoidRequest extends AbstractRestVoidRequest
 {
     public function getData()
     {
