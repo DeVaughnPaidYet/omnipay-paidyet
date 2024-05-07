@@ -21,9 +21,10 @@ class RestVoidRequest extends AbstractRestVoidRequest
         
         $data = array(
             'type' => 'void',
-            
         );
+        return $data;
     }
+    
     function getHttpMethod()
     {
         return 'PATCH';
