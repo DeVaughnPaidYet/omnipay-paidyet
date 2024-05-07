@@ -16,7 +16,7 @@ class RestCaptureRequest extends AbstractRestRequest
 {
     public function getData()
     {
-        $data = parent::getData();
+        
         $data['amount'] = $this->getAmount();
         return $data;
     }
