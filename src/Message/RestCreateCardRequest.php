@@ -42,6 +42,6 @@ class RestCreateCardRequest extends AbstractRestRequest
 
     protected function getEndpoint()
     {
-        return parent::getEndpoint() . '/vault/credit-cards';
+        return parent::getEndpoint() . '/card';
     }
 }
