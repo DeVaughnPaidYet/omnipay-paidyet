@@ -24,6 +24,10 @@ class RestVoidRequest extends AbstractRestVoidRequest
             
         );
     }
+    function getHttpMethod()
+    {
+        return 'PATCH';
+    }
 
     public function getEndpoint()
     {

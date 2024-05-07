@@ -140,7 +140,7 @@ abstract class AbstractRestVoidRequest extends \Omnipay\Common\Message\AbstractR
      */
     protected function getHttpMethod()
     {
-        return 'PATCH';
+        return 'POST';
     }
 
     protected function getEndpoint()
