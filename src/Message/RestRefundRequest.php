@@ -15,6 +15,10 @@ class RestRefundRequest extends AbstractRestRequest
     public function getData()
     {
         $this->validate('transactionId');
+        $data = array(
+            'type' => 'refund',
+        );
+        return $data;
 
         if ($this->getAmount() > 0) {
             return array(
