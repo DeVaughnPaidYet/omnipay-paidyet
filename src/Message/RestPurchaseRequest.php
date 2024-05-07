@@ -15,7 +15,7 @@ class RestPurchaseRequest extends RestAuthorizeRequest
     public function getData()
     {
         $data = parent::getData();
-        $data['intent'] = 'sale';
+        $data['type'] = 'sale';
         return $data;
     }
 }
