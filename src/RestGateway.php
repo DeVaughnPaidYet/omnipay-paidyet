@@ -375,8 +375,6 @@ class RestGateway extends AbstractGateway
     /**
      * Void an authorization.
      *
-     * To to void a previously authorized payment. You can only void a transaction that hasn't been settled yet.
-     *
      * @link https://paidyet.readme.io/reference/patch_transaction-id
      * @param array $parameters
      * @return \Omnipay\PaidYET\Message\RestVoidRequest

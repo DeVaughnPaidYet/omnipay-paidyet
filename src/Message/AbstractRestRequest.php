@@ -12,7 +12,7 @@ use Omnipay\Common\Exception\InvalidResponseException;
  *
  * This class forms the base class for PaidYET REST requests via the PaidYET REST APIs.
  *
- * @see Omnipay\PayPal\RestGateway
+ * @see Omnipay\PaidYET\RestGateway
  */
 
 abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractRequest
@@ -43,7 +43,7 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
     protected $liveEndpoint = 'https://api.paidyet.com';
 
     /**
-     * PayPal Payer ID
+     * Payer ID
      *
      * @var string PayerID
      */
