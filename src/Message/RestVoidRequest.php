@@ -18,7 +18,7 @@ class RestVoidRequest extends AbstractRestVoidRequest
 {
     public function getData()
     {
-        $this->validate('transactionId');
+        
         $data = array(
             'type' => 'void',
             
