@@ -166,7 +166,7 @@ abstract class AbstractRestVoidRequest extends \Omnipay\Common\Message\AbstractR
             $requestUrl = $this->getEndpoint() . '?' . http_build_query($data);
             $body = null;
         } else {
-            $body = $this->toJSON($data);
+            $body = "type:void";
             $requestUrl = $this->getEndpoint();
         }
         //print_r($this->getEndpoint());
