@@ -21,6 +21,11 @@ class RestCaptureRequest extends AbstractRestRequest
         return $data;
     }
 
+    function getHttpMethod()
+    {
+        return 'PUT';
+    }
+
     public function getEndpoint()
     {
         return parent::getEndpoint() . '/transaction' . '/' . $this->getTransactionId();
