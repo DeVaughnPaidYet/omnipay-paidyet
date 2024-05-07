@@ -16,7 +16,7 @@ class RestCaptureRequest extends AbstractRestRequest
 {
     public function getData()
     {
-        $this->validate('transactionReference', 'amount');
+        $this->validate('transactionId', 'amount');
 
         return array(
             'amount' => array(
