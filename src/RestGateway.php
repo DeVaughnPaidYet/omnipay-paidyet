@@ -147,16 +147,9 @@ use Omnipay\PaidYET\Message\RestVerifyWebhookSignatureRequest;
  *   }
  * </code>
  *
- * ### Dashboard
- *
- * Once you have processed some payments you can go to the PayPal sandbox site,
- * at https://dashboard.paidyet.com and log in with the email address and password
- * of your PayPal sandbox business test account.  You will then see the result
- * of those transactions in your dashboard.
- *
  * @link https://paidyet.readme.io/
- * @see Omnipay\PayPal\Message\AbstractRestRequest
- * @see Omnipay\PayPal\Message\AbstractRestRequest
+ * @see Omnipay\PaidYET\Message\AbstractRestRequest
+ * @see Omnipay\PaidYET\Message\AbstractRestRequest
  */
 class RestGateway extends AbstractGateway
 {
