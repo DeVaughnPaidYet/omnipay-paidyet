@@ -88,65 +88,6 @@ use Omnipay\PaidYET\Message\RestVerifyWebhookSignatureRequest;
  * Merchant's PaidYET api secret. These can be managed in the PaidYET dashboard
  *
  *
- * ### Example
- *
- * #### Initialize Gateway
- *
- * <code>
- *   // Create a gateway for the PaidYET RestGateway
- *   // (routes to GatewayFactory::create)
- *   $gateway = Omnipay::create('PaidYET_Rest');
- *
- *   // Initialise the gateway
- *   $gateway->initialize(array(
- *       'clientId' => 'merchant_id',
- *       'secret'   => 'secret',
- *       'testMode' => true, // Or false when you are ready for live transactions
- *   ));
- * </code>
- *
- * #### Direct Credit Card Payment
- *
- * <code>
- *   // Create a credit card object
- *   // DO NOT USE THESE CARD VALUES -- substitute your own
- *   // see the documentation in the class header.
- *   $card = new CreditCard(array(
- *               'firstName' => 'Example',
- *               'lastName' => 'User',
- *               'number' => '4111111111111111',
- *               'expiryMonth'           => '01',
- *               'expiryYear'            => '2020',
- *               'cvv'                   => '123',
- *               'billingAddress1'       => '1 Scrubby Creek Road',
- *               'billingCountry'        => 'AU',
- *               'billingCity'           => 'Scrubby Creek',
- *               'billingPostcode'       => '4999',
- *               'billingState'          => 'QLD',
- *   ));
- *
- *   // Do a purchase transaction on the gateway
- *   try {
- *       $transaction = $gateway->purchase(array(
- *           'amount'        => '10.00',
- *           'currency'      => 'AUD',
- *           'description'   => 'This is a test purchase transaction.',
- *           'card'          => $card,
- *       ));
- *       $response = $transaction->send();
- *       $data = $response->getData();
- *       echo "Gateway purchase response data == " . print_r($data, true) . "\n";
- *
- *       if ($response->isSuccessful()) {
- *           echo "Purchase transaction was successful!\n";
- *       }
- *   } catch (\Exception $e) {
- *       echo "Exception caught while attempting authorize.\n";
- *       echo "Exception type == " . get_class($e) . "\n";
- *       echo "Message == " . $e->getMessage() . "\n";
- *   }
- * </code>
- *
  * @link https://paidyet.readme.io/
  * @see Omnipay\PaidYET\Message\AbstractRestRequest
  * @see Omnipay\PaidYET\Message\AbstractRestRequest
