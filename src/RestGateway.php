@@ -61,6 +61,102 @@ use Omnipay\PaidYET\Message\RestVerifyWebhookSignatureRequest;
  * #### Direct Credit Card Payment
  *
  *
+ * PaidYET Class using REST API
+ *
+ * This class forms the gateway class for PaidYET requests via the PaidYET APIs.
+ *
+ * The PaidYET API uses a RESTful endpoint structure. Bearer token authentication is used.
+ * Request and response payloads are formatted as JSON.
+ *
+ * The PaidYET APIs are supported in two environments. Use the Sandbox environment
+ * for testing purposes, then move to the live environment for production processing.
+ * When testing, generate an access token with your test credentials to make calls to
+ * the Sandbox URIs. When you’re set to go live, use the live credentials assigned to
+ * your app to generate a new access token to be used with the live URIs.
+ *
+ *
+ * ### Credentials
+ *
+ * Authenticate with your PaidYET secret and Merchant ID to retrieve a bearer token. 
+ * The bearer token will expire periodically and you will need to obtain a new one.
+ * 
+ * merchant_id
+ * Merchant's PaidYET UUID. This field is only required when using a Partner level API secret.
+ * This is found in the Merchant list in the Partner Portal.
+ *
+ * secret
+ * Merchant's PaidYET api secret. These can be managed in the PaidYET dashboard
+ *
+ *
+ * ### Example
+ *
+ * #### Initialize Gateway
+ *
+ * <code>
+ *   // Create a gateway for the PaidYET RestGateway
+ *   // (routes to GatewayFactory::create)
+ *   $gateway = Omnipay::create('PaidYET_Rest');
+ *
+ *   // Initialise the gateway
+ *   $gateway->initialize(array(
+ *       'clientId' => 'merchant_id',
+ *       'secret'   => 'secret',
+ *       'testMode' => true, // Or false when you are ready for live transactions
+ *   ));
+ * </code>
+ *
+ * #### Direct Credit Card Payment
+ *
+ * <code>
+ *   // Create a credit card object
+ *   // DO NOT USE THESE CARD VALUES -- substitute your own
+ *   // see the documentation in the class header.
+ *   $card = new CreditCard(array(
+ *               'firstName' => 'Example',
+ *               'lastName' => 'User',
+ *               'number' => '4111111111111111',
+ *               'expiryMonth'           => '01',
+ *               'expiryYear'            => '2020',
+ *               'cvv'                   => '123',
+ *               'billingAddress1'       => '1 Scrubby Creek Road',
+ *               'billingCountry'        => 'AU',
+ *               'billingCity'           => 'Scrubby Creek',
+ *               'billingPostcode'       => '4999',
+ *               'billingState'          => 'QLD',
+ *   ));
+ *
+ *   // Do a purchase transaction on the gateway
+ *   try {
+ *       $transaction = $gateway->purchase(array(
+ *           'amount'        => '10.00',
+ *           'currency'      => 'AUD',
+ *           'description'   => 'This is a test purchase transaction.',
+ *           'card'          => $card,
+ *       ));
+ *       $response = $transaction->send();
+ *       $data = $response->getData();
+ *       echo "Gateway purchase response data == " . print_r($data, true) . "\n";
+ *
+ *       if ($response->isSuccessful()) {
+ *           echo "Purchase transaction was successful!\n";
+ *       }
+ *   } catch (\Exception $e) {
+ *       echo "Exception caught while attempting authorize.\n";
+ *       echo "Exception type == " . get_class($e) . "\n";
+ *       echo "Message == " . $e->getMessage() . "\n";
+ *   }
+ * </code>
+ *
+ * ### Dashboard
+ *
+ * Once you have processed some payments you can go to the PayPal sandbox site,
+ * at https://dashboard.paidyet.com and log in with the email address and password
+ * of your PayPal sandbox business test account.  You will then see the result
+ * of those transactions in your dashboard.
+ *
+ * @link https://paidyet.readme.io/
+ * @see Omnipay\PayPal\Message\AbstractRestRequest
+ * @see Omnipay\PayPal\Message\AbstractRestRequest
  */
 class RestGateway extends AbstractGateway
 {
@@ -299,18 +395,6 @@ class RestGateway extends AbstractGateway
     }
 
     /**
-     * @param array $parameters
-     *
-     * @return RestCreateWebhookRequest
-     */
-    public function createWebhook(array $parameters = [])
-    {
-        return $this->createRequest(RestCreateWebhookRequest::class, $parameters);
-    }
-
-
-
-    /**
      * Create an authorization request.
      *
      * To collect payment at a later time, first authorize a payment using the /payment resource.
@@ -417,26 +501,6 @@ class RestGateway extends AbstractGateway
     public function searchTransaction(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\PaidYET\Message\RestSearchTransactionRequest', $parameters);
-    }
-
-    /**
-     * @param array $parameters
-     *
-     * @return RestListWebhooksRequest
-     */
-    public function listWebhooks(array $parameters = [])
-    {
-        return $this->createRequest(RestListWebhooksRequest::class, $parameters);
-    }
-
-    /**
-     * @param array $parameters
-     *
-     * @return RestVerifyWebhookSignatureRequest
-     */
-    public function verifyWebhookSignature(array $parameters = [])
-    {
-        return $this->createRequest(RestVerifyWebhookSignatureRequest::class, $parameters);
     }
 
    
